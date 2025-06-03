@@ -1,7 +1,7 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        
-        Class nuevo = new Class();
+        Graficos nuevo = new Graficos();
         nuevo.main(args);
+        
     }
 }
