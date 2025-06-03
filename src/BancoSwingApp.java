@@ -3,6 +3,8 @@ import javax.swing.*;     // Para layouts
 
 public class BancoSwingApp {
 
+    //este archivo es una gia tranquilos que yo lo elimino..
+
     public static void main(String[] args) {
         // Crear ventana (JFrame)
         JFrame ventana = new JFrame("Banco Java");
@@ -35,7 +37,7 @@ public class BancoSwingApp {
 
         // Evento para "Depositar Dinero"
         botonDeposito.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog(ventana, "¿Cuánto deseas depositar?");
+            String input = JOptionPane.showInputDialog(ventana, "¿Cuánto deseas dep ositar?");
             try {
                 double cantidad = Double.parseDouble(input);
                 JOptionPane.showMessageDialog(ventana, "Has depositado: $" + cantidad);

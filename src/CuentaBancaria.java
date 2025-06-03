@@ -2,7 +2,7 @@ public class CuentaBancaria {
 
     
     public void depositar(){
-
+        
     }
 
     private void retirar(){
@@ -13,4 +13,5 @@ public class CuentaBancaria {
 
     }
     
+
 }
