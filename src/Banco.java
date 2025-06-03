@@ -1,16 +1,24 @@
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class Banco {
-    ArrayList<Object>listaClientes = new ArrayList<>();
+    private List<Cliente> clientes;
 
-    public void agregarCliente(){
-
-
+    public Banco() {
+        clientes = new ArrayList<>();
     }
 
-    public void buscarCliente(){
+    public void agregarCliente(Cliente cliente) {
+        clientes.add(cliente);
+    }
 
-        
+    public Cliente buscarClientePorNombre(String nombre) {
+        for (Cliente c : clientes) {
+            if (c.getNombre().equalsIgnoreCase(nombre)) {
+                return c;
+            }
+        }
+        return null;
     }
 }
+

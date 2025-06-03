@@ -1,86 +1,105 @@
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
-public class VentanaGrafica {
+public class VentanaGrafica extends JFrame {
+    private Banco banco;
+    private Cliente cliente;
+    private CuentaBancaria cuenta;
 
-    private Cliente acciones;
-    private JPanel panel;
-    private JTextArea areaInformacion;
+    private JComboBox<String> accionesCombo;
+    private JButton ejecutarBtn;
+    private JTextArea areaResultado;
 
-    public VentanaGrafica() {
-        this.acciones = new Cliente();
-    }
-   
-    public void inicio() {
-        JFrame ventana = new JFrame("Bancotech");
-        ventana.setSize(400, 300);
-        ventana.setLayout(new BorderLayout());
+    public VentanaGrafica(Banco banco, Cliente cliente) {
+        this.banco = banco;
+        this.cliente = cliente;
+        this.cuenta = cliente.getCuenta();
 
-        JLabel titulo = new JLabel("Bienvenido a Bancotech", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 20));
-        ventana.add(titulo, BorderLayout.NORTH);
+        setTitle("Sistema Bancario");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1, 10, 10));
+        String[] acciones = {
+                "Consultar Saldo",
+                "Depositar",
+                "Retirar",
+                "Ver Historial"
+        };
 
-        JButton registrar = new JButton("Registrarme");
-        JButton iniciarSeccion = new JButton("Iniciar Sección");
-        JButton salir = new JButton("Salir");
+        accionesCombo = new JComboBox<>(acciones);
+        ejecutarBtn = new JButton("Ejecutar Acción");
+        areaResultado = new JTextArea(8, 30);
+        areaResultado.setEditable(false);
 
-        registrar.addActionListener(new ActionListener() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.add(new JLabel("Seleccione una acción:"));
+        panel.add(accionesCombo);
+        panel.add(ejecutarBtn);
+        panel.add(new JScrollPane(areaResultado));
+
+        ejecutarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                acciones.agregarCuenta();
+                String accion = (String) accionesCombo.getSelectedItem();
+                realizarAccion(accion);
             }
         });
 
-        iniciarSeccion.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mostrarInformacion();
-            }
-        });
-
-        salir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-        panel.add(registrar);
-        panel.add(iniciarSeccion);
-        panel.add(salir);
-        ventana.add(panel, BorderLayout.CENTER);
-
-        areaInformacion = new JTextArea();
-        areaInformacion.setEditable(false);
-        ventana.add(areaInformacion, BorderLayout.SOUTH);
-
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setVisible(true);
+        add(panel);
     }
 
-    private void mostrarInformacion() {
-        StringBuilder informacion = new StringBuilder();
-        for (Usuarios usuario : acciones.ListaUsuarios().values()) {
-            informacion.append("Nombre: ").append(usuario.getNombre())
-                       .append(", Cédula: ").append(usuario.getCedula()).append("\n");
+    private void realizarAccion(String accion) {
+        switch (accion) {
+            case "Consultar Saldo":
+                areaResultado.setText("Saldo actual: $" + cuenta.getSaldo());
+                break;
+
+            case "Depositar":
+                String montoDeposito = JOptionPane.showInputDialog(this, "Ingrese el monto a depositar:");
+                try {
+                    double monto = Double.parseDouble(montoDeposito);
+                    cuenta.depositar(monto);
+                    areaResultado.setText("Depósito exitoso. Nuevo saldo: $" + cuenta.getSaldo());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Monto inválido");
+                }
+                break;
+
+            case "Retirar":
+                String montoRetiro = JOptionPane.showInputDialog(this, "Ingrese el monto a retirar:");
+                try {
+                    double monto = Double.parseDouble(montoRetiro);
+                    boolean exito = cuenta.retirar(monto);
+                    if (exito) {
+                        areaResultado.setText("Retiro exitoso. Nuevo saldo: $" + cuenta.getSaldo());
+                    } else {
+                        areaResultado.setText("Fondos insuficientes.");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Monto inválido");
+                }
+                break;
+
+            case "Ver Historial":
+                areaResultado.setText(cuenta.obtenerHistorial());
+                break;
+
+            default:
+                areaResultado.setText("Acción no reconocida.");
         }
-        areaInformacion.setText(informacion.toString());
-        panel.setVisible(false);
+    }
+
+    public static void main(String[] args) {
+        Banco banco = new Banco();
+        Cliente cliente = new Cliente("Juan Pérez", new CuentaBancaria("123456"));
+        banco.agregarCliente(cliente);
+
+        SwingUtilities.invokeLater(() -> {
+            new VentanaGrafica(banco, cliente).setVisible(true);
+        });
     }
 }
-
-
-
-
-
