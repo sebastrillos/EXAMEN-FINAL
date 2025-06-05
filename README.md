@@ -1,23 +1,23 @@
-##CUENTA BANCARIA (Bancotech)
+## CUENTA BANCARIA (Bancotech)
 
-LUIS FELIPE CUADRRO SEERNA 192533
-JHON SEBASTIAN TRILLO 192477
-JOSE JORGE CASTILLA 192495
-
-
-##ROLES DE CADA UNO 
- JHON SEBASTIAN 
- LOGICA Y PERSISTENCIA DE DATOS 
-
- JOSE JORGE 
- LOGICA Y PERSISTENCIA DE DATOS 
-
- LUIS FELIPE 
- LOGICA ,DOCUMENTACION Y PRUEBAS
+    LUIS FELIPE CUADRRO, 192533;
+    SEBASTIAN TRILLOS, 192477;
+    JORGE CASTILLA, 192495;
 
 
+## ROLES
+    JHON SEBASTIAN 
+    LOGICA Y PERSISTENCIA DE DATOS 
 
-##Descripción del problema
+    JOSE JORGE 
+    LOGICA Y PERSISTENCIA DE DATOS 
+
+    LUIS FELIPE 
+    LOGICA ,DOCUMENTACION Y PRUEBAS
+
+
+
+## Descripción del problema
 
     El código  implementa un simulador de banca en línea en Java, en donde los usuarios (clientes) pueden
 
@@ -31,7 +31,7 @@ JOSE JORGE CASTILLA 192495
 
 
 
-##Solucion del codigo.
+## Solucion del codigo.
 
     1. Prevenir clientes duplicados
     En el método registrarCliente(), antes de registrar un nuevo cliente, se valida si ya existe uno con la misma cédula. Si es así, se muestra un mensaje de advertencia y se cancela el registro.
@@ -49,7 +49,7 @@ JOSE JORGE CASTILLA 192495
     Se agregan mensajes aclaratorios para indicar que el cálculo del préstamo es una estimación y que se basa en una fórmula de interés compuesto mensual. Esto ayuda al usuario a comprender mejor el resultado
 
 
-##Datos Iniciales
+## Datos Iniciales
     El sistema incluye datos de prueba:
 
     Cliente: Juan Perez (cédula: 123, PIN: 1111)
@@ -63,7 +63,7 @@ JOSE JORGE CASTILLA 192495
     1 cuenta de ahorro (tasa 3%)
 
 
-##Características Principales
+## Características Principales
 
     Registro de nuevos clientes con cédula, nombre y PIN
 
@@ -71,7 +71,7 @@ JOSE JORGE CASTILLA 192495
 
 
 
-##Uso Básico
+## Uso Básico
 
     Registrar un nuevo cliente:
 
@@ -80,7 +80,7 @@ JOSE JORGE CASTILLA 192495
     Ingresar cédula, nombre completo y PIN de 4 dígitos
 
 
-##Iniciar sesión:
+## Iniciar sesión:
 
     Seleccionar "Iniciar sesión"
 
@@ -97,7 +97,7 @@ JOSE JORGE CASTILLA 192495
     Consultar historial
 
 
-##Descripción
+## Descripción
 
     BancoTech es una aplicación de banca en línea desarrollada en Java con interfaz gráfica Swing que permite:
 
@@ -129,7 +129,8 @@ JOSE JORGE CASTILLA 192495
 
     Cálculo de cuotas para préstamos
 
-##Tecnologías Utilizadas
+## Tecnologías Utilizadas
+
     Lenguaje: Java 
 
     Interfaz Gráfica: Java Swing
@@ -138,9 +139,10 @@ JOSE JORGE CASTILLA 192495
 
     Control de Versiones: Git
 
-##EXPLIACACION DE METODO 
+## EXPLIACACION DEL CODIGO
 
-##1. public static void main(String[] args)
+**1. public static void main(String[] args)**
+
     Función: Punto de entrada del programa
 
     Detalle:
@@ -165,7 +167,7 @@ JOSE JORGE CASTILLA 192495
 
     Usa tasas de interés y límites de ejemplo
 
-##2. Métodos de menú y Navegación
+**2. Métodos de menú y Navegación**
 
     private static void mostrarMenuPrincipal()
     Función: Muestra las opciones principales
@@ -186,7 +188,7 @@ JOSE JORGE CASTILLA 192495
 
     Limpia el buffer del scanner
 
-##3. Métodos de Gestión de Clientes
+**3. Métodos de Gestión de Clientes**
     java
     private static void registrarCliente()
     Proceso:
@@ -211,7 +213,7 @@ JOSE JORGE CASTILLA 192495
 
     Establece clienteLogueado si es correcto
 
-##4. Métodos de Operaciones Bancarias (requieren sesión)
+**4. Métodos de Operaciones Bancarias (requieren sesión)**
 
     private static void menuOperacionesCliente()
     Función: Menú de operaciones post-login
@@ -247,7 +249,7 @@ JOSE JORGE CASTILLA 192495
     CuentaBancaria{Número='A1B2C3D4', Saldo=100.00, Tipo='Ahorro'}
 
 
-##5. Métodos de Transacciones
+**5. Métodos de Transacciones**
 
     private static void realizarDeposito()
     Proceso:
@@ -276,7 +278,7 @@ JOSE JORGE CASTILLA 192495
 
     Saldo suficiente en origen
 
-##6. Métodos de Consulta
+**6. Métodos de Consulta**
 
     private static void verHistorialTransacciones()
     Salida: Muestra cada transacción con formato:
@@ -290,7 +292,7 @@ JOSE JORGE CASTILLA 192495
     pago = (monto * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -periodos))
     Salida: Muestra cuota mensual formateada (ej: 256.43)
 
-##7. Métodos de Utilidad
+**7. Métodos de Utilidad**
 
     private static double obtenerMonto()
     Función: Lee cantidades monetarias
