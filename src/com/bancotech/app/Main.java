@@ -18,6 +18,7 @@ public class Main {
     public static Cliente getClienteLogueado() {
         return clienteLogueado;
     }
+    
 
     public static void setClienteLogueado(Cliente cliente) {
         clienteLogueado = cliente;
@@ -231,8 +232,13 @@ class MainFrame extends JFrame {
             double tasa = Double.parseDouble(txtTasa.getText());
             double limite = Double.parseDouble(txtLimite.getText());
             Main.getBanco().crearCuenta(Main.getClienteLogueado(), tipo, tasa, limite);
-            textArea.append("Cuenta " + tipo + " creada\n");
-            cardLayout.show(cardPanel, "operaciones");
+           String newAccountNumber = Main.getBanco().crearCuenta(Main.getClienteLogueado(), tipo, tasa, limite);
+            if (newAccountNumber != null) {
+                // Aquí se muestra el número de cuenta
+                textArea.append("Cuenta " + tipo + " creada. Número: " + newAccountNumber + "\n");
+            } else {
+                textArea.append("Error al crear cuenta.\n");
+            }
         });
 
         JButton btnCancelar = new JButton("Cancelar");
@@ -241,7 +247,7 @@ class MainFrame extends JFrame {
         panelCuenta.add(btnCrear);
         panelCuenta.add(btnCancelar);
 
-        cardPanel.removeAll();
+        
         cardPanel.add(panelCuenta, "crearCuenta");
         cardLayout.show(cardPanel, "crearCuenta");
     }
@@ -292,7 +298,7 @@ class MainFrame extends JFrame {
         panelOperacionCuenta.add(confirmar);
         panelOperacionCuenta.add(btnCancelar);
 
-        cardPanel.removeAll();
+        
         cardPanel.add(panelOperacionCuenta, "operacionCuenta");
         cardLayout.show(cardPanel, "operacionCuenta");
     }
@@ -332,7 +338,7 @@ class MainFrame extends JFrame {
         panelTransferir.add(btnTransferir);
         panelTransferir.add(btnCancelar);
 
-        cardPanel.removeAll();
+        
         cardPanel.add(panelTransferir, "transferir");
         cardLayout.show(cardPanel, "transferir");
     }
@@ -364,7 +370,7 @@ class MainFrame extends JFrame {
         panelHistorial.add(btnVer);
         panelHistorial.add(btnCancelar);
 
-        cardPanel.removeAll();
+        
         cardPanel.add(panelHistorial, "historial");
         cardLayout.show(cardPanel, "historial");
     }
@@ -399,7 +405,7 @@ class MainFrame extends JFrame {
         panelPrestamo.add(btnCalcular);
         panelPrestamo.add(btnCancelar);
 
-        cardPanel.removeAll();
+        
         cardPanel.add(panelPrestamo, "prestamo");
         cardLayout.show(cardPanel, "prestamo");
     }
