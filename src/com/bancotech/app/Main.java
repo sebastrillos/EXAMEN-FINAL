@@ -234,7 +234,7 @@ class MainFrame extends JFrame {
             Main.getBanco().crearCuenta(Main.getClienteLogueado(), tipo, tasa, limite);
            String newAccountNumber = Main.getBanco().crearCuenta(Main.getClienteLogueado(), tipo, tasa, limite);
             if (newAccountNumber != null) {
-                // Aquí se muestra el número de cuenta
+                
                 textArea.append("Cuenta " + tipo + " creada. Número: " + newAccountNumber + "\n");
             } else {
                 textArea.append("Error al crear cuenta.\n");

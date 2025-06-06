@@ -312,3 +312,9 @@ Seguridad Básica:
 Valida propiedad de cuentas antes de operar
 
 Verifica PIN en login
+
+## Diagrama de clases UML 
+
+El siguiente diagrama muestra la estructura logica del sistema:
+
+![Diagrama UML](src/UML-Proyecto-paint.png)
