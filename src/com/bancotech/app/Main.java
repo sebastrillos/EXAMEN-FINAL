@@ -25,14 +25,14 @@ public class Main {
     }
 
     public static void cargarDatosIniciales() {
-        Cliente c1 = new Cliente("123", "Juan Perez", "1111");
-        banco.agregarCliente(c1);
-        banco.crearCuenta(c1, "ahorro", 0.05, 0);
-        banco.crearCuenta(c1, "corriente", 0, 500.0);
+        Cliente usuarioUno = new Cliente("123", "Juan Perez", "1111");
+        banco.agregarCliente(usuarioUno);
+        banco.crearCuenta(usuarioUno, "ahorro", 0.05, 0);
+        banco.crearCuenta(usuarioUno, "corriente", 0, 500.0);
 
-        Cliente c2 = new Cliente("456", "Maria Lopez", "2222");
-        banco.agregarCliente(c2);
-        banco.crearCuenta(c2, "ahorro", 0.03, 0);
+        Cliente usuarioDos = new Cliente("456", "Maria Lopez", "2222");
+        banco.agregarCliente(usuarioDos);
+        banco.crearCuenta(usuarioDos, "ahorro", 0.03, 0);
     }
 }
 
@@ -47,7 +47,7 @@ class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        textArea = new JTextArea();
+        textArea = new JTextArea(); 
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
 
@@ -100,7 +100,7 @@ class MainFrame extends JFrame {
 
         JTextField txtId = new JTextField();
         JTextField txtNombre = new JTextField();
-        JTextField txtPin = new JTextField();
+        JPasswordField txtPin = new JPasswordField();
 
         panelRegistro.add(new JLabel("Cédula:"));
         panelRegistro.add(txtId);
@@ -111,7 +111,7 @@ class MainFrame extends JFrame {
 
         JButton btnRegistrar = new JButton("Registrar");
         btnRegistrar.addActionListener(e -> {
-            Cliente nuevoCliente = new Cliente(txtId.getText(), txtNombre.getText(), txtPin.getText());
+            Cliente nuevoCliente = new Cliente(txtId.getText(), txtNombre.getText(), new String(txtPin.getPassword()));
             Main.getBanco().agregarCliente(nuevoCliente);
             textArea.append("Cliente registrado: " + txtNombre.getText() + "\n");
             cardLayout.show(cardPanel, "menu");
@@ -130,7 +130,7 @@ class MainFrame extends JFrame {
         JPanel panelLogin = new JPanel(new GridLayout(3, 2, 5, 5));
 
         JTextField txtId = new JTextField();
-        JTextField txtPin = new JTextField();
+        JPasswordField txtPin = new JPasswordField();
 
         panelLogin.add(new JLabel("Cédula:"));
         panelLogin.add(txtId);
@@ -140,7 +140,7 @@ class MainFrame extends JFrame {
         JButton btnLogin = new JButton("Iniciar sesión");
         btnLogin.addActionListener(e -> {
             Cliente cliente = Main.getBanco().buscarCliente(txtId.getText());
-            if (cliente != null && cliente.validarPin(txtPin.getText())) {
+            if (cliente != null && cliente.validarPin(new String(txtPin.getPassword()))) {
                 Main.setClienteLogueado(cliente);
                 textArea.append("Sesión iniciada: " + cliente.getNombre() + "\n");
                 txtId.setText("");
