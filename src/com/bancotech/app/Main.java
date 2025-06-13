@@ -24,16 +24,7 @@ public class Main {
         clienteLogueado = cliente;
     }
 
-    public static void cargarDatosIniciales() {
-        Cliente usuarioUno = new Cliente("123", "Juan Perez", "1111");
-        banco.agregarCliente(usuarioUno);
-        banco.crearCuenta(usuarioUno, "ahorro", 0.05, 0);
-        banco.crearCuenta(usuarioUno, "corriente", 0, 500.0);
 
-        Cliente usuarioDos = new Cliente("456", "Maria Lopez", "2222");
-        banco.agregarCliente(usuarioDos);
-        banco.crearCuenta(usuarioDos, "ahorro", 0.03, 0);
-    }
 }
 
 class MainFrame extends JFrame {
@@ -79,7 +70,12 @@ class MainFrame extends JFrame {
             if (Main.getClienteLogueado() != null) {
                 cardLayout.show(cardPanel, "operaciones");
             } else {
-                textArea.append("Por favor, inicie sesión primero.\n");
+                JOptionPane.showMessageDialog(
+                    null,
+                    "No ha iniciado seccion",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE
+                );
             }
         });
 
@@ -287,7 +283,13 @@ class MainFrame extends JFrame {
                     textArea.append("Retiro de " + monto + " de cuenta " + cuenta.getNumeroCuenta() + "\n");
                 }
             } else {
-                textArea.append("Cuenta no válida\n");
+                JOptionPane.showMessageDialog(
+                    null,
+                     "Cuenta no valida.",
+                     "Error",
+                     JOptionPane
+                     .WARNING_MESSAGE
+                     );
             }
             cardLayout.show(cardPanel, "operaciones");
         });
@@ -327,7 +329,12 @@ class MainFrame extends JFrame {
                 textArea.append("Transferencia de " + monto + " de cuenta " + origen.getNumeroCuenta()
                         + " a cuenta " + destino.getNumeroCuenta() + "\n");
             } else {
-                textArea.append("Cuentas no válidas\n");
+                JOptionPane.showMessageDialog(
+                  null,
+                 "Cuentas no validas.",
+                 "Error",
+                 JOptionPane.WARNING_MESSAGE
+                 );
             }
             cardLayout.show(cardPanel, "operaciones");
         });
@@ -359,7 +366,12 @@ class MainFrame extends JFrame {
                     textArea.append("- " + t + "\n");
                 }
             } else {
-                textArea.append("Cuenta no válida\n");
+                JOptionPane.showMessageDialog(
+                null,
+                 "Cuenta no valida.",
+                 "Error",
+                 JOptionPane.WARNING_MESSAGE
+                 );
             }
             cardLayout.show(cardPanel, "operaciones");
         });
@@ -374,6 +386,10 @@ class MainFrame extends JFrame {
         cardPanel.add(panelHistorial, "historial");
         cardLayout.show(cardPanel, "historial");
     }
+    private boolean esNumero(String texto) {
+    return texto != null && texto.matches("-?\\d+(\\.\\d+)?");
+    }
+
 
     private void calcularPrestamo() {
         JPanel panelPrestamo = new JPanel(new GridLayout(5, 2, 5, 5));
@@ -391,12 +407,26 @@ class MainFrame extends JFrame {
 
         JButton btnCalcular = new JButton("Calcular");
         btnCalcular.addActionListener(e -> {
-            double monto = Double.parseDouble(txtMonto.getText());
-            int periodos = Integer.parseInt(txtPeriodos.getText());
-            double tasa = Double.parseDouble(txtTasa.getText());
-            double pago = Main.getBanco().calcularPagoMensualPrestamo(monto, periodos, tasa);
-            textArea.append(String.format("Pago mensual estimado: %.2f\n", pago));
-            cardLayout.show(cardPanel, "operaciones");
+            String sMonto = txtMonto.getText();
+            String sPeriodos = txtPeriodos.getText();
+            String sTasa = txtTasa.getText();
+            if (esNumero(sMonto) && esNumero(sPeriodos) && esNumero(sTasa)) {
+
+                double monto = Double.parseDouble(txtMonto.getText());
+                int periodos = Integer.parseInt(txtPeriodos.getText());
+                double tasa = Double.parseDouble(txtTasa.getText());
+
+                double pago = Main.getBanco().calcularPagoMensualPrestamo(monto, periodos, tasa);
+                textArea.append(String.format("Pago mensual estimado: %.2f\n", pago));
+                cardLayout.show(cardPanel, "operaciones");
+            } else {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Completa todos los campos.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE
+                    );
+            }
         });
 
         JButton btnCancelar = new JButton("Cancelar");

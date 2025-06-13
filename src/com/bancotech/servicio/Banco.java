@@ -1,10 +1,9 @@
 package com.bancotech.servicio;
 
 import com.bancotech.modelo.Cliente;
-import com.bancotech.modelo.CuentaBancaria;
 import com.bancotech.modelo.CuentaAhorro;
+import com.bancotech.modelo.CuentaBancaria;
 import com.bancotech.modelo.CuentaCorriente;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID; 
@@ -59,7 +58,7 @@ public class Banco {
             System.out.println("Cuenta " + tipoCuenta + " creada con éxito para " + cliente.getNombre() + ". Número de cuenta: " + numeroCuenta);
             return numeroCuenta;
         }
-        return null;
+        return null;   
     }
 
    
